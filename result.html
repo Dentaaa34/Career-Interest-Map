@@ -1,0 +1,366 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-surface": "#241912",
+              surface: "#fff8f5",
+              "on-tertiary-container": "#004360",
+              "secondary-container": "#dfe0e0",
+              "inverse-primary": "#ffb77d",
+              "surface-variant": "#f3dfd1",
+              "surface-tint": "#904d00",
+              "on-primary-fixed-variant": "#6e3900",
+              outline: "#897362",
+              "on-primary": "#ffffff",
+              primary: "#904d00",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "surface-dim": "#ead6c9",
+              "on-tertiary": "#ffffff",
+              secondary: "#5d5f5f",
+              "surface-container-high": "#f9e4d7",
+              "on-primary-fixed": "#2f1500",
+              "surface-container": "#ffeadd",
+              "on-background": "#241912",
+              "inverse-on-surface": "#ffede3",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#c6c6c7",
+              "surface-container-low": "#fff1e9",
+              "secondary-fixed": "#e2e2e2",
+              background: "#fff8f5",
+              "surface-bright": "#fff8f5",
+              "primary-fixed-dim": "#ffb77d",
+              tertiary: "#00658f",
+              "on-secondary-fixed-variant": "#454747",
+              "on-secondary-container": "#616363",
+              "surface-container-highest": "#f3dfd1",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#623200",
+              "primary-container": "#ff8c00",
+              "tertiary-container": "#00b5fc",
+              "on-secondary-fixed": "#1a1c1c",
+              "error-container": "#ffdad6",
+              error: "#ba1a1a",
+              "outline-variant": "#ddc1ae",
+              "on-surface-variant": "#564334",
+              "on-tertiary-fixed": "#001e2e",
+              "on-secondary": "#ffffff",
+              "inverse-surface": "#3a2e25",
+              "primary-fixed": "#ffdcc3",
+              "tertiary-fixed": "#c7e7ff",
+              "tertiary-fixed-dim": "#85cfff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              base: "8px",
+              xs: "4px",
+              "container-max": "1280px",
+              sm: "12px",
+              lg: "48px",
+              md: "24px",
+              xl: "80px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              h1: ["Montserrat"],
+              h2: ["Montserrat"],
+              h3: ["Montserrat"],
+              "body-md": ["Inter"],
+              "body-lg": ["Inter"],
+              "label-bold": ["Inter"],
+              caption: ["Inter"],
+            },
+            fontSize: {
+              h1: [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              h2: [
+                "32px",
+                {
+                  lineHeight: "1.3",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              h3: ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-bold": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .resting-shadow {
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+      }
+      .hover-shadow:hover {
+        box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08);
+      }
+      .progress-track {
+        background-color: #241912;
+      }
+      .progress-fill {
+        background-color: #ff8c00;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-background font-body-md">
+    <!-- TopNavBar -->
+    <nav
+      class="bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md docked full-width top-0 sticky shadow-sm z-50"
+    >
+      <div
+        class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto"
+      >
+        <div class="font-h2 text-h2 font-bold text-on-surface">Career Interest Map</div>
+        <div class="hidden md:flex gap-md items-center">
+          
+      </div>
+    </nav>
+    <main class="max-w-container-max mx-auto px-gutter py-8 ">
+      <!-- Results Header Section -->
+      <section class="mb-12 text-center md:text-left">
+        <span
+          class="text-primary font-label-bold uppercase tracking-widest mb-base block"
+          >Hasil dan Penjelasan Eksplorasi</span
+        >
+        <h1 class="font-h1 text-h1 text-on-surface mb-md">
+          Hasil dan Penjelasan Hasil Eksplorasi Minat Karir
+        </h1>
+        <div class="max-w-3xl text-body-lg text-on-surface-variant leading-relaxed">
+  <p class="mb-6 text-justify">
+    Hasil eksplorasi ini bukan jawaban akhir tentang karier yang paling cocok
+    untukmu. Hasil yang ditampilkan membantu memberikan gambaran awal mengenai
+    kecenderungan minat karier sebagai bahan refleksi dan eksplorasi lebih lanjut.
+  </p>
+
+  <p class="mb-4 font-medium">
+    Kamu akan melihat tiga kategori utama yang menggambarkan profil minatmu:
+  </p>
+
+  <ol class="list-decimal pl-8 space-y-2 text-justify leading-normal">
+    <li>
+      <strong>Minat Utama</strong>: Bidang yang paling mendominasi dan
+      mencerminkan kecenderungan minatmu.
+    </li>
+
+    <li>
+      <strong>Minat Pendukung Pertama</strong>: Minat sekunder yang memperkuat
+      potensi dan karakteristik minat utamamu.
+    </li>
+
+    <li>
+      <strong>Minat Pendukung Kedua</strong>: Minat tambahan yang dapat
+      memperluas pilihan karier serta peluang pengembangan diri.
+    </li>
+  </ol>
+</div>
+      
+      <!-- Visualization Bento Grid -->
+       <section class="mb-20 text-center md:text-left"></section>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-md mb-xl">
+        
+        <!-- Main Chart Card -->
+        <div
+          class="md:col-span-8 bg-surface-container-lowest p-md md:p-lg rounded-xl resting-shadow flex flex-col justify-between"
+        >
+          <div class="flex justify-between items-start mb-8">
+            <div>
+              <h3 class="font-h3 text-h3 mb-xs">HASIL EKSPLORASI</h3>
+
+              <p class="text-caption text-on-surface-variant">
+                Skor Presentase Berdasarkan Hasil Pengerjaan
+              </p>
+            </div>
+
+            <span
+              class="material-symbols-outlined text-primary text-3xl"
+              data-icon="insights"
+            >
+              insights
+            </span>
+          </div>
+
+          <!-- AUTO RESULT -->
+          <div id="topTalentContainer" class="space-y-lg"></div>
+        </div>
+
+        <!-- Insight Sidebar Card -->
+        <div
+          class="md:col-span-4 bg-on-surface text-surface-container-lowest p-md md:p-lg rounded-xl flex flex-col justify-center relative overflow-hidden"
+        >
+          <div class="relative z-10">
+            <div
+              class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center mb-md"
+            >
+              <span
+                class="material-symbols-outlined text-on-surface"
+                data-icon="auto_awesome"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+              >
+                auto_awesome
+              </span>
+            </div>
+
+            <!-- AUTO TITLE -->
+            <h3 id="superpowerTitle" class="font-h3 text-h3 mb-md"></h3>
+
+            <!-- AUTO DESCRIPTION -->
+            <p></p>
+
+            <button
+              class="flex items-center gap-xs font-label-bold text-primary-container hover:underline"
+            >
+              Scroll Kebawah Untuk Melihat Penjelasan Lengkapnya.
+
+              <span
+                class="material-symbols-outlined text-sm"
+                data-icon="download"
+              >
+                
+              </span>
+            </button>
+          </div>
+
+          <!-- Abstract visual element -->
+          <div
+            class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl"
+          ></div>
+        </div>
+      </div>
+<!-- Interpretasi Top 2 & Top 3 -->
+<section class="bg-on-surface p-lg rounded-xl resting-shadow mb-xl">
+
+  <h3 class="font-h3 text-orange-100 text-h3 mb-6 ">
+    Minat Utama
+  </h3>
+
+  <!-- Top 1 -->
+    <div class="border-b border-outline-variant ">
+      <h4 id="superpowerTitle" class="text-lg  font-bold text-orange-100 "
+        
+      ></h4>
+
+      <p style="text-align: justify;"
+      id="superpowerDesc"class="text-body-md text-white opacity-80,"
+      > </p>
+    </div>
+
+  <div class="space-y-lg">
+
+    <!-- Top 2 -->
+    <div class="border-b border-outline-variant mt-12">
+      <h4
+        id="secondaryTitle"
+        class="text-lg font-bold text-orange-100 "
+      ></h4>
+
+      <p
+        id="secondaryDesc"
+        class="text-body-md text-white opacity-80 text-on-surface-variant text-justify"
+      ></p>
+    </div>
+
+    <!-- Top 3 -->
+    <div>
+      <h4
+        id="thirdTitle"
+        class="text-lg font-bold text-orange-100"
+      ></h4>
+
+      <p
+        id="thirdDesc"
+        class="text-body-md text-white opacity-80 text-on-surface-variant text-justify"
+      ></p>
+    </div>
+
+  </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-on-surface text-surface-variant/70 full-width mt-xl">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center w-full px-gutter py-lg gap-md max-w-container-max mx-auto"
+      >
+        <div class="flex flex-col gap-xs items-center md:items-start">
+          <div class="font-h3 text-h3 text-white">Career Interest Map</div>
+          <p class="font-caption text-caption">
+            © 2024 Career Interest Map. All rights reserved. Powered by Professional
+            Energy.
+          </p>
+        </div>
+        <div class="flex gap-lg">
+          <a
+            class="text-caption hover:text-primary-container transition-colors"
+            href="#"
+            >Privacy</a
+          >
+          <a
+            class="text-caption hover:text-primary-container transition-colors"
+            href="#"
+            >Terms</a
+          >
+          <a
+            class="text-caption hover:text-primary-container transition-colors"
+            href="#"
+            >Contact</a
+          >
+          <a
+            class="text-caption hover:text-primary-container transition-colors"
+            href="#"
+            >Support</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script src="js/result.js"></script>
+  </body>
+</html>
