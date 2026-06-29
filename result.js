@@ -1,4 +1,5 @@
 const scores = JSON.parse(localStorage.getItem("finalScores")) || {};
+const answers = JSON.parse(localStorage.getItem("finalAnswers")) || {};
 
 const labels = {
   realistic: "Praktik",
@@ -26,7 +27,46 @@ const descriptions = {
     "Kamu memiliki kecenderungan untuk menyukai aktivitas yang dilakukan di dalam ruangan dengan tugas-tugas yang terstruktur, rapi, dan mengikuti prosedur yang jelas. Kamu cenderung merasa nyaman dengan pekerjaan yang melibatkan pengorganisasian, ketelitian, serta akurasi dalam menyelesaikan tugas. Kamu juga memiliki minat pada aktivitas yang berhubungan dengan data atau angka, seperti melakukan perhitungan, mengelola informasi, serta bekerja dengan sistem administrasi yang teratur. Dalam keseharian, kamu cenderung menyukai pekerjaan seperti mencatat dan menyimpan data, mengoperasikan komputer (komputasi dan keyboarding), menangani uang, serta mengatur berbagai dokumen atau kegiatan secara sistematis. Gambaran karier yang mungkin relevan dengan minat kamu mencakup pekerjaan yang membutuhkan ketelitian, kedisiplinan, dan kemampuan organisasi yang baik. Kamu cenderung cocok dengan pekerjaan yang melibatkan administrasi, pengelolaan data, keuangan, perencanaan, serta tugas-tugas yang membutuhkan fokus pada detail dan kepatuhan terhadap prosedur yang sudah ditetapkan.",
 };
 
-const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+const maxScores = {
+  realistic: 60,
+  investigative: 60,
+  artistic: 55,
+  social: 60,
+  enterprising: 60,
+  conventional: 55,
+};
+
+const countFive = {
+  realistic: 0,
+  investigative: 0,
+  artistic: 0,
+  social: 0,
+  enterprising: 0,
+  conventional: 0,
+};
+
+Object.values(answers).forEach((answer) => {
+  if (answer.answer === 5) {
+    countFive[answer.type]++;
+  }
+});
+
+const sortedScores = Object.entries(scores)
+  .map(([key, score]) => ({
+    key,
+    score,
+    percent: Math.round((score / maxScores[key]) * 100),
+    fiveCount: countFive[key],
+  }))
+  .sort((a, b) => {
+    // Urutkan berdasarkan persen
+    if (b.percent !== a.percent) {
+      return b.percent - a.percent;
+    }
+
+    // Jika persen sama, lihat siapa yang lebih banyak menjawab 5
+    return b.fiveCount - a.fiveCount;
+  });
 
 const topContainer = document.getElementById("topTalentContainer");
 
@@ -37,53 +77,55 @@ const top4 = sortedScores[3];
 const top5 = sortedScores[4];
 const top6 = sortedScores[5];
 
-const maxScores = {
-  realistic: 60,
-  investigative: 60,
-  artistic: 55,
-  social: 60,
-  enterprising: 60,
-  conventional: 55,
-};
-
-[top1, top2, top3, top4, top5, top6].forEach((item) => {
-  const maxScore = maxScores[item[0]];
-  const percent = Math.round((item[1] / maxScore) * 100);
-
+sortedScores.forEach((item) => {
   topContainer.innerHTML += `
-    <div class="group">
-      <div class="flex justify-between mb-xs">
-        <span class="font-label-bold text-on-surface">
-          ${labels[item[0]]}
-        </span>
+      <div class="group">
+        <div class="flex justify-between mb-xs">
+          <span>${labels[item.key]}</span>
+          <span>${item.percent}%</span>
+        </div>
 
-        <span class="font-label-bold text-primary">
-          ${percent}%
-        </span>
+        <div class="h-3 w-full progress-track rounded-full overflow-hidden">
+          <div class="h-full progress-fill rounded-full"
+               style="width:${item.percent}%">
+          </div>
+        </div>
       </div>
-
-      <div class="h-3 w-full progress-track rounded-full overflow-hidden">
-        <div
-          class="h-full progress-fill rounded-full"
-          style="width:${percent}%"
-        ></div>
-      </div>
-    </div>
-  `;
+    `;
 });
 
 document.getElementById("superpowerTitle").innerText =
-  `Minat utama: "${labels[top1[0]]}"`;
+  `Minat utama: "${labels[top1.key]}"`;
 
-document.getElementById("superpowerDesc").innerText = descriptions[top1[0]];
+document.getElementById("superpowerDesc").innerText = descriptions[top1.key];
 // Interpretasi skor tertinggi kedua
 document.getElementById("secondaryTitle").innerText =
-  `Minat Pendukung 1: ${labels[top2[0]]}`;
+  `Minat Pendukung 1: ${labels[top2.key]}`;
 
-document.getElementById("secondaryDesc").innerText = descriptions[top2[0]];
+document.getElementById("secondaryDesc").innerText = descriptions[top2.key];
 
 // Interpretasi skor tertinggi ketiga
 document.getElementById("thirdTitle").innerText =
-  `Minat Pendukung 2: ${labels[top3[0]]}`;
+  `Minat Pendukung 2: ${labels[top3.key]}`;
 
-document.getElementById("thirdDesc").innerText = descriptions[top3[0]];
+document.getElementById("thirdDesc").innerText = descriptions[top3.key];
+
+const restartBtn = document.getElementById("restartBtn");
+
+restartBtn.addEventListener("click", () => {
+  const confirmRestart = confirm(
+    "Apakah kamu yakin ingin mengulang tes? Semua jawaban sebelumnya akan dihapus.",
+  );
+
+  if (!confirmRestart) return;
+
+  // Hapus data tes
+  localStorage.removeItem("answers");
+  localStorage.removeItem("scores");
+  localStorage.removeItem("finalScores");
+  localStorage.removeItem("finalAnswers");
+  localStorage.removeItem("currentQuestion");
+
+  // Kembali ke halaman awal tes
+  window.location.href = "test.html";
+});
